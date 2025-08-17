@@ -1,0 +1,667 @@
+﻿<Window x:Class="ZapretDesktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZapretDesktop"
+        mc:Ignorable="d"
+        Title="Zapret" 
+        x:Name="Wnd"
+        Height="450" Width="800"
+        d:Background="{StaticResource WindowBackgroundColor}"
+        Background="{DynamicResource WindowBackgroundColor}"
+        WindowStyle="SingleBorderWindow"
+        Icon="{DynamicResource AppIcon}"
+        AllowsTransparency="False"
+        ResizeMode="CanResize"
+        WindowStartupLocation="CenterScreen"
+        MinWidth="270" MinHeight="350"
+        Closing="Window_OnClosing"
+        Loaded="MainWindow_OnLoaded">
+    <Window.Resources>
+        <local:HalfValueConverter x:Key="HalfValueConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid x:Name="MainGrid" Focusable="True" FocusVisualStyle="{x:Null}" ClipToBounds="True" >
+            <Grid.Effect>
+                <BlurEffect x:Name="BgBlur" Radius="0" RenderingBias="Quality" />
+            </Grid.Effect>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Style="{StaticResource RoundButtonBaseStyle}"
+                    Grid.ColumnSpan="2"
+                    x:Name="SelectedStrategyName"
+                    VerticalAlignment="Top" HorizontalAlignment="Center"
+                    Width="Auto"
+                    Margin="0,10,0,0">
+                <Button.Background>
+                    <LinearGradientBrush x:Name="SelectedStrategyNameGradient" 
+                                         StartPoint="0,0" 
+                                         EndPoint="1,0">
+                        <GradientStop x:Name="ButtonColor1" Color="{DynamicResource LogoDefaultColor}" Offset="-0.4"/>
+                        <GradientStop x:Name="ButtonColor2" Color="{DynamicResource LogoDefaultColor}" Offset="1.4"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform x:Name="SelectedStrategyNameScale" 
+                                        ScaleX="1" 
+                                        ScaleY="{Binding ElementName=SelectedStrategyNameScale, Path=ScaleX}" 
+                                        CenterX="{Binding ElementName=SelectedStrategyName, Path=ActualWidth, Converter={StaticResource HalfValueConverter}}"
+                                        CenterY="{Binding ElementName=SelectedStrategyName, Path=ActualHeight, Converter={StaticResource HalfValueConverter}}"/>
+                        <TranslateTransform x:Name="SelectedStrategyNameTranslate" />
+                    </TransformGroup>
+                </Button.RenderTransform>
+                <TextBlock x:Name="SelectedStrategyNameText"
+                           Text="general.bat"
+                           FontSize="13" 
+                           VerticalAlignment="Center" HorizontalAlignment="Center"
+                           Margin="16,0,16,0">
+                    <TextBlock.Foreground>
+                        <SolidColorBrush Color="{DynamicResource SelectedStrategyNameTextDefaultColor}"/>
+                    </TextBlock.Foreground>
+                </TextBlock>
+            </Button>
+            <Rectangle x:Name="HelpingRect" 
+                       Grid.Column="0"
+                       Fill="Transparent" 
+                       Width="0" 
+                       Height="{Binding ElementName=Panel, Path=ActualHeight}"/>
+            <Border x:Name="Panel"
+                    Width="250" 
+                    Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    d:Background="{StaticResource PanelBackgroundColor}"
+                    Background="{DynamicResource PanelBackgroundColor}" 
+                    CornerRadius="0,12,12,0"
+                    Grid.ColumnSpan="2"
+                    SnapsToDevicePixels="True"
+                    BorderThickness="0,1,1,1"
+                    BorderBrush="{DynamicResource PanelBorderColor}">
+                <Border.RenderTransform>
+                    <TranslateTransform x:Name="PanelTranslate" X="-250" />
+                </Border.RenderTransform>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ToggleButton x:Name="HideButton"
+                                  HorizontalAlignment="Right" VerticalAlignment="Top"
+                                  Margin="10"
+                                  Height="30" Width="30"
+                                  Unchecked="HideButton_OnUnchecked">
+                        <ToggleButton.Triggers>
+                            <EventTrigger RoutedEvent="ToggleButton.Checked">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="TopLine"
+                                                         Storyboard.TargetProperty="X1"
+                                                         To="5.5" Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="TopLine"
+                                                         Storyboard.TargetProperty="X2"
+                                                         To="0" Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="BottomLine"
+                                                         Storyboard.TargetProperty="X2"
+                                                         To="0" Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="BottomLine"
+                                                         Storyboard.TargetProperty="X1"
+                                                         To="5.5" Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="SelectedStrategyNameTranslate"
+                                                         Storyboard.TargetProperty="Y"
+                                                         From="0" To="-50" 
+                                                         Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="PanelTranslate"
+                                                         Storyboard.TargetProperty="X"
+                                                         From="-250"
+                                                         To="0"
+                                                         Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuarticEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="HelpingRect"
+                                                         Storyboard.TargetProperty="Width"
+                                                         From="0"
+                                                         To="250"
+                                                         Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuarticEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="HideButtonTranslate"
+                                                         Storyboard.TargetProperty="X"
+                                                         From="50"
+                                                         To="0"
+                                                         Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuarticEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="SettingsButtonCloneTranslate"
+                                                         Storyboard.TargetProperty="X"
+                                                         From="0"
+                                                         To="50"
+                                                         Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuarticEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="TopLine"
+                                                         Storyboard.TargetProperty="X1"
+                                                         To="0" Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="TopLine"
+                                                         Storyboard.TargetProperty="X2"
+                                                         To="5.5" Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="BottomLine"
+                                                         Storyboard.TargetProperty="X2"
+                                                         To="5.5" Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="BottomLine"
+                                                         Storyboard.TargetProperty="X1"
+                                                         To="0" Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="SelectedStrategyNameTranslate"
+                                                         Storyboard.TargetProperty="Y"
+                                                         From="-50" To="0" 
+                                                         Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="PanelTranslate"
+                                                         Storyboard.TargetProperty="X"
+                                                         From="0"
+                                                         To="-250"
+                                                         Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuarticEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="HelpingRect"
+                                                         Storyboard.TargetProperty="Width"
+                                                         From="250"
+                                                         To="0"
+                                                         Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuarticEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="HideButtonTranslate"
+                                                         Storyboard.TargetProperty="X"
+                                                         From="0"
+                                                         To="50"
+                                                         Duration="0:0:0.3"
+                                                         BeginTime="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuarticEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="SettingsButtonCloneTranslate"
+                                                         Storyboard.TargetProperty="X"
+                                                         From="50"
+                                                         To="0"
+                                                         Duration="0:0:0.3"
+                                                         BeginTime="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuarticEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ToggleButton.Triggers>
+                        <ToggleButton.RenderTransform>
+                            <TranslateTransform x:Name="HideButtonTranslate" X="50"/>
+                        </ToggleButton.RenderTransform>
+                        <ToggleButton.Content>
+                            <Grid VerticalAlignment="Center"
+                                  HorizontalAlignment="Center">
+                                <Line x:Name="TopLine" 
+                                      X1="0" Y1="0" X2="5.5" Y2="5.5" 
+                                      Stroke="{DynamicResource IconDefaultColor}" 
+                                      StrokeThickness="1.5"
+                                      StrokeStartLineCap="Round"
+                                      StrokeEndLineCap="Round"
+                                      StrokeLineJoin="Round"/>
+                                <Line x:Name="BottomLine" 
+                                      X1="0" Y1="11" X2="5.5" Y2="5.5" 
+                                      Stroke="{DynamicResource IconDefaultColor}" 
+                                      StrokeThickness="1.5"
+                                      StrokeStartLineCap="Round"
+                                      StrokeEndLineCap="Round"
+                                      StrokeLineJoin="Round"/>
+                            </Grid>
+                        </ToggleButton.Content>
+                        <ToggleButton.Style>
+                            <Style TargetType="ToggleButton" BasedOn="{StaticResource RoundToggleButtonStyle}">
+                                <Setter Property="ToolTip">
+                                    <Setter.Value>
+                                        <ToolTip Placement="Bottom" 
+                                                 Content="{DynamicResource HideButtonHideToolTipText}" 
+                                                 HorizontalAlignment="Center"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsChecked" Value="False">
+                                        <Setter Property="ToolTip">
+                                            <Setter.Value>
+                                                <ToolTip Placement="Bottom" 
+                                                         Content="{DynamicResource HideButtonShowToolTipText}" 
+                                                         HorizontalAlignment="Right"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ToggleButton.Style>
+                    </ToggleButton>
+                    <Button x:Name="SettingsButton"
+                            Grid.Row="0"
+                            Style="{StaticResource RoundButtonStyle}"
+                            HorizontalAlignment="Left" VerticalAlignment="Top"
+                            Margin="10,10"
+                            Click="SettingsButton_OnClick">
+                        <Button.ToolTip>
+                            <ToolTip Placement="Right" 
+                                     Content="{DynamicResource SettingsToolTipText}" 
+                                     VerticalAlignment="Center"/>
+                        </Button.ToolTip>
+                        <Button.Content>
+                            <Image Height="16" Source="{DynamicResource SettingsIcon}"/>
+                        </Button.Content>
+                    </Button>
+                    <Button x:Name="AddButton"
+                            Grid.Row="0"
+                            Style="{StaticResource AddButtonStyle}"
+                            HorizontalAlignment="Left" VerticalAlignment="Top"
+                            Margin="10,50,0,0"
+                            Click="AddButton_OnClick">
+                        <Button.ToolTip>
+                            <ToolTip Content="{DynamicResource AddButtonToolTipText}" 
+                                     Placement="Bottom" 
+                                     HorizontalAlignment="Right" />
+                        </Button.ToolTip>
+                    </Button>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
+                        <StackPanel>
+                            <StackPanel>
+                                <Grid Margin="10,4,0,3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Height="12" 
+                                           HorizontalAlignment="Center"
+                                           Margin="0,0,4,0"
+                                           VerticalAlignment="Center" 
+                                           Source="{DynamicResource BatIcon}"/>
+                                    <TextBlock Grid.Column="1"
+                                               Margin="0,0,0,2"
+                                               Foreground="{DynamicResource MinorTextColor}" 
+                                               FontSize="13"
+                                               Text="{DynamicResource StrategiesText}"/>
+                                </Grid>
+                                <StackPanel x:Name="Strategies">
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel>
+                                <Grid Margin="10,18,0,3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Height="12" 
+                                           HorizontalAlignment="Center"
+                                           Margin="0,0,4,0"
+                                           VerticalAlignment="Center" 
+                                           Source="{DynamicResource TxtIcon}"/>
+                                    <TextBlock Grid.Column="1"
+                                               Margin="0,0,0,2"
+                                               Foreground="{DynamicResource MinorTextColor}" 
+                                               FontSize="13"
+                                               Text="{DynamicResource ListsText}"/>
+                                </Grid>
+                                <StackPanel x:Name="Lists">
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+            <Canvas x:Name="GridPanel" Grid.Column="1" ClipToBounds="True">
+                <Grid x:Name="ConnectionGrid" 
+                      Height="{Binding ElementName=MainGrid, Path=ActualHeight}"
+                      Width="{Binding ElementName=GridPanel, Path=ActualWidth}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="1.5*"/>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.RenderTransform>
+                        <TranslateTransform x:Name="ConnectionGridTranslate" Y="0" />
+                    </Grid.RenderTransform>
+                    
+                    <Button x:Name="SettingsButtonClone" 
+                            HorizontalAlignment="Right" VerticalAlignment="Top"
+                            Margin="10,10"
+                            Click="SettingsButton_OnClick">
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource RoundButtonStyle}" TargetType="Button">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="{DynamicResource ButtonMouseOverColor}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="False">
+                                        <Setter Property="Background" Value="{DynamicResource ButtonCheckedColor}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.RenderTransform>
+                            <TranslateTransform x:Name="SettingsButtonCloneTranslate" X="0" />
+                        </Button.RenderTransform>
+                        <Button.ToolTip>
+                            <ToolTip Placement="Bottom" 
+                                     Content="{DynamicResource SettingsToolTipText}" 
+                                     HorizontalAlignment="Left"/>
+                        </Button.ToolTip>
+                        <Button.Content>
+                            <Image Height="16" Source="{DynamicResource SettingsIcon}"/>
+                        </Button.Content>
+                    </Button>
+                    <Image x:Name="Logo" Grid.Row="1" VerticalAlignment="Bottom" MaxHeight="300" >
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform x:Name="LogoScale" 
+                                                CenterX="{Binding ElementName=Logo, Path=ActualWidth, Converter={StaticResource HalfValueConverter}}" 
+                                                CenterY="{Binding ElementName=Logo, Path=ActualHeight, Converter={StaticResource HalfValueConverter}}"
+                                                ScaleX="0.8"
+                                                ScaleY="{Binding ElementName=LogoScale, Path=ScaleX}"/>
+                                <RotateTransform x:Name="LogoRotate"
+                                                 CenterX="{Binding ElementName=Logo, Path=ActualWidth, Converter={StaticResource HalfValueConverter}}" 
+                                                 CenterY="{Binding ElementName=Logo, Path=ActualHeight, Converter={StaticResource HalfValueConverter}}"
+                                                 Angle="10"/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                        <Image.Source>
+                            <DrawingImage>
+                                <DrawingImage.Drawing>
+                                    <DrawingGroup ClipGeometry="M0,0 V84.738619 H115.79533 V0 H0 Z">
+                                        <DrawingGroup Opacity="1" Transform="1,0,0,1,-8.2481689,-23.776527">
+                                            <GeometryDrawing Geometry="F1 M115.79533,115.79534z M0,0z M104.03654,23.996985C102.7918,23.987785 101.7827,25.006335 101.78293,26.251111 101.78593,27.296233 102.50667,28.202543 103.52443,28.440124 103.41421,29.936693 103.3319,30.831117 103.19938,32.022851 103.00766,33.746998 102.85092,34.62716 102.51932,37.182226 102.18577,39.752385 101.76518,42.311288 101.3442,44.868579 100.97502,47.111115 100.42779,50.178574 99.999063,52.559582 99.861965,52.512422 99.733131,52.451112 99.591853,52.41127 98.052288,44.392246 92.459773,36.813379 86.480508,33.130794 80.524547,29.462562 73.891081,27.585168 67.267728,27.400394 66.577795,27.381144 65.887571,27.380454 65.198604,27.397794 54.864087,27.658375 44.725343,32.026137 37.392549,40.130866 24.877914,53.96294 25.503434,69.274839 36.821008,84.102342 48.138582,98.929856 65.801151,96.022028 65.801151,96.022028 65.801151,96.022028 52.000551,94.077386 43.736348,83.250198 35.472145,72.42301 36.101824,57.332557 45.240132,47.232242 54.378441,37.131927 69.332341,34.999754 80.929943,42.14263 86.728744,45.714068 92.178364,55.224327 92.085334,63.841563 92.038824,68.150181 90.263537,72.692469 87.937784,76.459914 87.083199,77.844242 85.302085,79.545093 83.850178,80.828123 82.493264,81.932337 81.587267,82.586672 81.587267,82.586672 81.587267,82.586672 81.825164,82.524222 81.867353,82.513812 81.852043,82.525972 81.74333,82.615098 81.74333,82.615098 81.74333,82.615098 81.860629,82.524978 81.879756,82.510712 82.669971,82.315467 89.810851,80.516836 96.052017,77.59835 102.65598,74.510216 105.61224,72.850931 106.61416,68.259386 107.43411,64.50177 106.71703,59.488551 104.37141,56.047728 105.43974,54.817743 108.60248,51.169985 110.51832,48.829047 112.14724,46.838695 113.74069,44.818183 115.28185,42.759134 116.81838,40.706258 116.77017,40.657255 118.22689,38.546988 118.91713,37.547061 120.00635,35.999974 120.86239,34.710529 121.86752,35.13978 123.03571,34.786099 123.6338,33.871304 124.31301,32.828375 124.01829,31.43247 122.97544,30.753148 121.93238,30.073489 120.53612,30.368249 119.85677,31.411506 119.28881,32.288893 119.39849,33.441438 120.12187,34.195832 119.21284,35.389769 118.09521,36.784977 117.37475,37.697427 115.77811,39.719583 115.68693,39.678664 114.01474,41.638789 112.33268,43.610495 110.58405,45.525222 108.83573,47.438434 107.18934,49.240097 104.97087,51.599703 103.47482,53.186921 103.41242,53.213851 103.35398,53.234271 103.30119,53.247381 103.06048,53.307131 102.91838,53.264761 102.78752,53.175551 102.6852,53.105771 102.59168,52.985512 102.52966,52.829836 102.82396,50.681826 103.25083,47.514554 103.51254,45.115061 103.79138,42.558278 104.02479,39.995687 104.19261,37.429225 104.35992,34.870462 104.33596,33.989833 104.37761,32.269334 104.40831,31.00205 104.41221,30.01463 104.42571,28.466982 105.5021,28.2781 106.28764,27.343928 106.28967,26.251097 106.28991,25.006579 105.28158,24.00619 104.0371,23.996971z M66.146866,44.701664C54.350378,44.701664 44.701664,54.350378 44.701664,66.146866 44.701664,77.943355 54.350378,87.590001 66.146866,87.590001 77.943355,87.590001 87.590001,77.943355 87.590001,66.146866 87.590001,54.350378 77.943355,44.701664 66.146866,44.701664z M66.146866,52.639164C73.653611,52.639164 79.652501,58.640122 79.652501,66.146866 79.652501,73.653611 73.653611,79.652501 66.146866,79.652501 58.640122,79.652501 52.639164,73.653611 52.639164,66.146866 52.639164,58.640122 58.640122,52.639164 66.146866,52.639164z M66.146866,56.09425C60.626843,56.09425 56.09425,60.626843 56.09425,66.146866 56.09425,71.66689 60.626843,76.197415 66.146866,76.197415 71.66689,76.197415 76.197415,71.66689 76.197415,66.146866 76.197415,60.626843 71.66689,56.09425 66.146866,56.09425z M66.146866,61.38695C68.807059,61.38695 70.906782,63.486674 70.906782,66.146866 70.906782,68.807059 68.807059,70.906782 66.146866,70.906782 63.486674,70.906782 61.38695,68.807059 61.38695,66.146866 61.38695,63.486674 63.486674,61.38695 66.146866,61.38695z M66.146349,62.238578A3.9077625,3.9077625,0,0,0,62.238578,66.146349A3.9077625,3.9077625,0,0,0,66.146349,70.054121A3.9077625,3.9077625,0,0,0,70.054121,66.146349A3.9077625,3.9077625,0,0,0,66.146349,62.238578z">
+                                                <GeometryDrawing.Brush>
+                                                    <LinearGradientBrush x:Name="LogoFill" 
+                                                                         StartPoint="0,0"
+                                                                         EndPoint="1,0">
+                                                        <GradientStop x:Name="Color1" 
+                                                                      Color="{DynamicResource LogoDefaultColor}" 
+                                                                      Offset="0.0"/>
+                                                        <GradientStop x:Name="Color2" 
+                                                                      Color="{DynamicResource LogoDefaultColor}" 
+                                                                      Offset="1.0"/>
+                                                    </LinearGradientBrush>
+                                                </GeometryDrawing.Brush>
+                                            </GeometryDrawing>
+                                        </DrawingGroup>
+                                    </DrawingGroup>
+                                </DrawingImage.Drawing>
+                            </DrawingImage>
+                        </Image.Source>
+                    </Image>
+                    <StackPanel Grid.Row="2" VerticalAlignment="Top" Margin="0,-20,0,0">
+                        <TextBlock x:Name="ConnectionStatus" 
+                                   Foreground="{DynamicResource MainTextColor}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="26"
+                                   FontWeight="DemiBold"
+                                   Text="{DynamicResource ConnectionStatusDisconnectedText}"/>
+                        <ToggleButton x:Name="ConnectButton" 
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"
+                                      Margin="0,10,0,0"
+                                      Checked="ConnectButton_OnChecked"
+                                      Unchecked="ConnectButton_OnUnchecked">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="ToggleButton">
+                                    <Grid>
+                                        <Border x:Name="PART_Border" 
+                                                CornerRadius="10" 
+                                                Background="#FF53C55E" 
+                                                Width="130"/>
+                                        <TextBlock x:Name="text"
+                                                   Foreground="White" FontSize="16"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                   Margin="0,8,0,8" 
+                                                   Text="{DynamicResource ConnectButtonUncheckedText}">
+                                        </TextBlock>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="PART_Border" Property="Opacity" Value="0.9" />
+                                        </Trigger>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter TargetName="PART_Border" Property="Background" Value="{DynamicResource MainTextColor}" />
+                                            <Setter TargetName="text" Property="Text" Value="{DynamicResource ConnectButtonCheckedText}" />
+                                            <Setter TargetName="text" Property="Foreground" Value="{DynamicResource WindowBackgroundColor}" />
+                                        </Trigger>
+                                        <Trigger Property="IsChecked" Value="{x:Null}">
+                                            <Setter TargetName="PART_Border" Property="Background" Value="{DynamicResource ButtonCheckedColor}" />
+                                            <Setter TargetName="text" Property="Text" Value="{DynamicResource ConnectButtonNullText}" />
+                                            <Setter TargetName="text" Property="Foreground" Value="{DynamicResource ButtonMouseOverColor}" />
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                            <ToggleButton.Triggers>
+                                <EventTrigger RoutedEvent="ToggleButton.Checked">
+                                    <BeginStoryboard Name="MyStoryBoard">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="LogoScale"
+                                                             Storyboard.TargetProperty="ScaleX"
+                                                             To="1.0"
+                                                             Duration="0:0:0.5">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <QuarticEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Storyboard.TargetName="LogoRotate"
+                                                             Storyboard.TargetProperty="Angle"
+                                                             To="0"
+                                                             Duration="0:0:0.5">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <QuarticEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <ColorAnimation Storyboard.TargetName="Color1"
+                                                            Storyboard.TargetProperty="Color"
+                                                            To="Blue"
+                                                            Duration="0:0:0.5">
+                                                <ColorAnimation.EasingFunction>
+                                                    <QuarticEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <ColorAnimation Storyboard.TargetName="Color2"
+                                                            Storyboard.TargetProperty="Color"
+                                                            To="Red"
+                                                            Duration="0:0:0.5">
+                                                <ColorAnimation.EasingFunction>
+                                                    <QuarticEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <PointAnimation Storyboard.TargetName="LogoFill"
+                                                            Storyboard.TargetProperty="EndPoint"
+                                                            RepeatBehavior="Forever" AutoReverse="True"
+                                                            From="1,0" To="1,1"
+                                                            Duration="0:0:4"/>
+                                            <DoubleAnimation Storyboard.TargetName="SelectedStrategyNameScale"
+                                                             Storyboard.TargetProperty="ScaleX"
+                                                             From="1" To="1.1"
+                                                             Duration="0:0:0.2"
+                                                             AutoReverse="True">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <SineEase EasingMode="EaseOut" />
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <ColorAnimation Storyboard.TargetName="ButtonColor1"
+                                                            Storyboard.TargetProperty="Color"
+                                                            To="Blue"
+                                                            Duration="0:0:0.5">
+                                                <ColorAnimation.EasingFunction>
+                                                    <QuarticEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <ColorAnimation Storyboard.TargetName="ButtonColor2"
+                                                            Storyboard.TargetProperty="Color"
+                                                            To="Red"
+                                                            Duration="0:0:0.5">
+                                                <ColorAnimation.EasingFunction>
+                                                    <QuarticEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <ColorAnimation Storyboard.TargetName="SelectedStrategyNameText"
+                                                            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                                                            To="White"
+                                                            Duration="0:0:0.5">
+                                                <ColorAnimation.EasingFunction>
+                                                    <QuarticEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <PointAnimation Storyboard.TargetName="SelectedStrategyNameGradient"
+                                                            Storyboard.TargetProperty="EndPoint"
+                                                            RepeatBehavior="Forever" AutoReverse="True"
+                                                            From="1,0" To="1,1"
+                                                            Duration="0:0:4"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                                    <RemoveStoryboard BeginStoryboardName="MyStoryBoard" />
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="LogoRotate"
+                                                             Storyboard.TargetProperty="Angle"
+                                                             To="10"
+                                                             Duration="0:0:0.5">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <QuarticEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Storyboard.TargetName="LogoScale"
+                                                             Storyboard.TargetProperty="ScaleX"
+                                                             To="0.8"
+                                                             Duration="0:0:0.5">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <QuarticEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <ColorAnimation Storyboard.TargetName="Color1"
+                                                            Storyboard.TargetProperty="Color"
+                                                            To="{DynamicResource LogoDefaultColor}"
+                                                            Duration="0:0:0.5">
+                                                <ColorAnimation.EasingFunction>
+                                                    <QuarticEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <ColorAnimation Storyboard.TargetName="Color2"
+                                                            Storyboard.TargetProperty="Color"
+                                                            To="{DynamicResource LogoDefaultColor}"
+                                                            Duration="0:0:0.5">
+                                                <ColorAnimation.EasingFunction>
+                                                    <QuarticEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <ColorAnimation Storyboard.TargetName="ButtonColor1"
+                                                            Storyboard.TargetProperty="Color"
+                                                            To="{DynamicResource LogoDefaultColor}"
+                                                            Duration="0:0:0.5">
+                                                <ColorAnimation.EasingFunction>
+                                                    <QuarticEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <ColorAnimation Storyboard.TargetName="ButtonColor2"
+                                                            Storyboard.TargetProperty="Color"
+                                                            To="{DynamicResource LogoDefaultColor}"
+                                                            Duration="0:0:0.5">
+                                                <ColorAnimation.EasingFunction>
+                                                    <QuarticEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <DoubleAnimation Storyboard.TargetName="SelectedStrategyNameScale"
+                                                             Storyboard.TargetProperty="ScaleX"
+                                                             From="1" To="0.9"
+                                                             Duration="0:0:0.2"
+                                                             AutoReverse="True">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <SineEase EasingMode="EaseOut" />
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <ColorAnimation Storyboard.TargetName="SelectedStrategyNameText"
+                                                            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                                                            To="{DynamicResource SelectedStrategyNameTextDefaultColor}"
+                                                            Duration="0:0:0.5">
+                                                <ColorAnimation.EasingFunction>
+                                                    <QuarticEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </ToggleButton.Triggers>
+                        </ToggleButton>
+                    </StackPanel>
+                </Grid>
+            </Canvas>
+            <Grid x:Name="BgDark" 
+                  Background="Black" 
+                  Grid.ColumnSpan="2" 
+                  Grid.Column="0"
+                  Opacity="0.1" 
+                  Visibility="Collapsed" />
+        </Grid>
+        <Grid x:Name="PopupGrid"></Grid>
+    </Grid>
+</Window>

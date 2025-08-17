@@ -1,0 +1,105 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!-- MainScreen -->
+    <sys:String x:Key="ConnectionStatusConnectedText">Подключено</sys:String>
+    <sys:String x:Key="ConnectionStatusConnectingText">Подключение...</sys:String>
+    <sys:String x:Key="ConnectionStatusDisconnectedText">Отключено</sys:String>
+    <sys:String x:Key="ConnectButtonCheckedText">Отключить</sys:String>
+    <sys:String x:Key="ConnectButtonUncheckedText">Подключить</sys:String>
+    <sys:String x:Key="ConnectButtonNullText">Недоступно</sys:String>
+    
+    <!-- RightPanel -->
+    <sys:String x:Key="ListsText">Списки</sys:String>
+    <sys:String x:Key="StrategiesText">Стратегии</sys:String>
+    <sys:String x:Key="AddButtonText">Добавить</sys:String>
+    
+    <!-- SettingsPopup -->
+    <sys:String x:Key="AppearanceSettingsButtonText">Внешний вид</sys:String>
+    <sys:String x:Key="LocalSettingsButtonText">Локальные</sys:String>
+    <sys:String x:Key="AboutButtonText">О программе</sys:String>
+    <sys:String x:Key="ThemeText">Тема</sys:String>
+    <sys:String x:Key="LanguageText">Язык</sys:String>
+    <sys:String x:Key="AnimationsText">Анимации</sys:String>
+    <sys:String x:Key="LightThemeMenuItemText">Светлая</sys:String>
+    <sys:String x:Key="DarkThemeMenuItemText">Темная</sys:String>
+    <sys:String x:Key="SystemThemeMenuItemText">Система</sys:String>
+    <sys:String x:Key="EnglishMenuItemText">Английский</sys:String>
+    <sys:String x:Key="RussianMenuItemText">Русский</sys:String>
+    <sys:String x:Key="StrategyFolderText">Расположение стратегий</sys:String>
+    <sys:String x:Key="ListFolderText">Расположение списков</sys:String>
+    <sys:String x:Key="BinFolderText">Расположение папки bin</sys:String>
+    <TextBlock x:Key="ZapretDiscordYouTubeVersionText" Style="{StaticResource SettingsLeftTextBlock}">
+        <Run>Версия</Run>
+        <Run FontWeight="SemiBold">zapret-discord-youtube</Run>
+    </TextBlock>
+    <TextBlock x:Key="ZapretDesktopVersionText" Style="{StaticResource SettingsLeftTextBlock}">
+        <Run>Версия</Run>
+        <Run FontWeight="SemiBold">ZapretDesktop</Run>
+    </TextBlock>
+    <TextBlock x:Key="ZapretDiscordYouTubeDeveloperText" Style="{StaticResource SettingsLeftTextBlock}">
+        <Run>Разработчик</Run>
+        <Run FontWeight="SemiBold">zapret-discord-youtube</Run>
+    </TextBlock>
+    <TextBlock x:Key="ZapretDesktopDeveloperText" Style="{StaticResource SettingsLeftTextBlock}">
+        <Run>Разработчик</Run>
+        <Run FontWeight="SemiBold">ZapretDesktop</Run>
+    </TextBlock>
+    <TextBlock x:Key="ZapretDeveloperText" Style="{StaticResource SettingsLeftTextBlock}">
+        <Run>Разработчик</Run>
+        <Run FontWeight="SemiBold">zapret</Run>
+    </TextBlock>
+    
+    <!-- Other popups -->
+    <sys:String x:Key="SavePopupTitleText">Сохранение</sys:String>
+    <sys:String x:Key="SavePopupMessageText">Сохранить изменения в файле</sys:String>
+    <sys:String x:Key="SavePopupSaveButtonText">Сохранить</sys:String>
+    <sys:String x:Key="SavePopupNoSaveButtonText">Не сохранять</sys:String>
+    <sys:String x:Key="SavePopupCancelButtonText">Отмена</sys:String>
+    <sys:String x:Key="DeletePopupTitleText">Удаление</sys:String>
+    <sys:String x:Key="DeletePopupMessageText">Вы уверены что хотите безвозвратно удалить</sys:String>
+    <sys:String x:Key="DeletePopupYesButtonText">Да</sys:String>
+    <sys:String x:Key="DeletePopupNoButtonText">Нет</sys:String>
+    <sys:String x:Key="ErrorPopupTitleText">Ошибка</sys:String>
+    <sys:String x:Key="ErrorPopupFileNameMessageBeginningText">Файл с именем</sys:String>
+    <sys:String x:Key="ErrorPopupIncorrectFileMessageText">некорректен.</sys:String>
+    <sys:String x:Key="ErrorPopupFileNotFoundMessageText">не найден.</sys:String>
+    <sys:String x:Key="ErrorPopupWinwsRunFailedMessageText">Ошибка запуска winws.exe:</sys:String>
+    <sys:String x:Key="ErrorPopupWrongSymbolsMessageText">Имя файла не должно содержать следующих знаков:  \\ / : * ? \" &lt; &gt; |</sys:String>
+    <sys:String x:Key="ErrorPopupFileAlreadyExistsMessageText">уже существует.</sys:String>
+    <sys:String x:Key="ErrorPopupRenameFailedMessageText">Не удалось переименовать файл.</sys:String>
+    <sys:String x:Key="ErrorPopupOkButtonText">Ок</sys:String>
+    
+    <!-- EditingPanel -->
+    <sys:String x:Key="SearchButtonText">Поиск</sys:String>
+    <sys:String x:Key="SearchBoxText">Поиск по</sys:String>
+    <sys:String x:Key="SaveButtonText">Сохранить</sys:String>
+    <sys:String x:Key="SaveButtonCheckedText">Сохранено</sys:String>
+    <sys:String x:Key="CopyButtonText">Копировать</sys:String>
+    <sys:String x:Key="CopyButtonCheckedText">Скопировано</sys:String>
+    <sys:String x:Key="WarningMessageText">Редактирование недоступно при подключенном соединении</sys:String>
+    
+    <!-- Context menus -->
+    <sys:String x:Key="RenameMenuItemText">Переименовать</sys:String>
+    <sys:String x:Key="DeleteMenuItemText">Удалить</sys:String>
+    <sys:String x:Key="PasteMenuItemText">Вставить</sys:String>
+    <sys:String x:Key="SelectAllMenuItemText">Выбрать все</sys:String>
+    <sys:String x:Key="CutMenuItemText">Вырезать</sys:String>
+    <sys:String x:Key="OpenMenuItemText">Открыть</sys:String>
+    <sys:String x:Key="ExitMenuItemText">Выход</sys:String>
+    
+    <!-- ToolTips -->
+    <sys:String x:Key="SettingsToolTipText">Настройки</sys:String>
+    <sys:String x:Key="HideButtonShowToolTipText">Показать панель</sys:String>
+    <sys:String x:Key="HideButtonHideToolTipText">Свернуть панель</sys:String>
+    <sys:String x:Key="AddButtonToolTipText">Добавить файл стратегии</sys:String>
+    <sys:String x:Key="CloseButtonToolTipText">Закрыть</sys:String>
+    <sys:String x:Key="DownButtonToolTipText">Вниз</sys:String>
+    <sys:String x:Key="UpButtonToolTipText">Вверх</sys:String>
+    <sys:String x:Key="MatchesToolTipText">Совпадения</sys:String>
+    <sys:String x:Key="SelectButtonToolTipText">Выбрать</sys:String>
+    
+    <!-- Other -->
+    <sys:String x:Key="SelectFileText">Выберите файл</sys:String>
+    <sys:String x:Key="BatchFileText">Пакетный файл</sys:String>
+</ResourceDictionary>

@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Buttons -->
+    <SolidColorBrush x:Key="ButtonNormalColor" Color="Transparent"/>
+    <SolidColorBrush x:Key="ButtonCheckedColor" Color="#363844"/>
+    <SolidColorBrush x:Key="ButtonMouseOverColor" Color="#474857"/>
+    <SolidColorBrush x:Key="RoundButtonNormalColor" Color="Transparent"/>
+    <SolidColorBrush x:Key="RoundButtonMouseOverColor" Color="#363844" />
+    <SolidColorBrush x:Key="AddButtonNormalColor" Color="#696CFF"/>
+    <SolidColorBrush x:Key="AddButtonMouseOverColor" Color="#7C7CFF"/>
+    <SolidColorBrush x:Key="EditingPanelButtonColor" Color="#74758D"/>
+    <Color x:Key="CloseWindowColor">White</Color>
+    
+    <!-- Backgrounds -->
+    <SolidColorBrush x:Key="ContextMenuBackgroundColor" Color="#2B2D39"/>
+    <SolidColorBrush x:Key="WindowBackgroundColor" Color="#2B2D39"/>
+    <SolidColorBrush x:Key="WindowBorderColor" Color="#373A4A"/>
+    <SolidColorBrush x:Key="TitleBarColor" Color="#1E1F27"/>
+    <SolidColorBrush x:Key="PanelBackgroundColor" Color="#24242E"/>
+    <SolidColorBrush x:Key="EditingPanelBackgroundColor" Color="#24242E"/>
+    <SolidColorBrush x:Key="PanelBorderColor" Color="#363844"/>
+    <Thickness x:Key="PanelBorderThickness">1</Thickness>
+    <SolidColorBrush x:Key="SearchBoxBackgroundColor" Color="#20202B"/>
+    
+    <!-- Text -->
+    <SolidColorBrush x:Key="MainTextColor" Color="White"/>
+    <SolidColorBrush x:Key="MinorTextColor" Color="#595A6C"/>
+    
+    <!-- Other -->
+    <Color x:Key="LogoDefaultColor">#474857</Color>
+    <Color x:Key="SelectedStrategyNameTextDefaultColor">White</Color>
+    <ImageSource x:Key="AppIcon">pack://application:,,,/ZapretDesktop;component/Images/LogoDark.ico</ImageSource>
+    
+</ResourceDictionary>
